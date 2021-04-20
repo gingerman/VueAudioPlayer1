@@ -23,49 +23,49 @@ export default {
   created() {
     this.tracks = [	
 	{
-		"id": [],
+		"id": 1,
 		"date": "14 09 10",
 		"path": "the brozone- fuck it or kill it  10-02-11.mp3",
 		"title": "the brozone- fuck it or kill it  10-02-11.mp3"
 	},	
 	{
-		"id": [],
+		"id": 2,
 		"date": "15 10 75",
 		"path": "the brozone- emotional freedom techniques  9-25-11.mp3",
 		"title": "the brozone- emotional freedom techniques  9-25-11.mp3"
 	},	
 	{
-		"id": [],
+		"id": 3,
 		"date": "25 12 22",
 		"path": "the brozone- the techno-economic center of gravity and the develpmental line of the self  9-18-11.mp3",
 		"title": "the brozone- the techno-economic center of gravity and the develpmental line of the self  9-18-11.mp3"
 	},	
 	{
-		"id": [],
+		"id": 4,
 		"date": "25 12 22",
 		"path": "the brozone- divination, astrology and the pre-trans fallacy  9-11-11.mp3",
 		"title": "the brozone- divination, astrology and the pre-trans fallacy  9-11-11.mp3"
 	},	
 	{
-		"id": [],
+		"id": 5,
 		"date": "25 12 22",
 		"path": "the brozone- the dangers of evolution  9-4-11.mp3",
 		"title": "the brozone- the dangers of evolution  9-4-11.mp3"
 	},	
 	{
-		"id": [],
+		"id": 6,
 		"date": "25 12 22",
 		"path": "the brozone- kosmic bacon strips  8-28-11.mp3",
 		"title": "the brozone- kosmic bacon strips  8-28-11.mp3"
 	},	
 	{
-		"id": [],
+		"id": 7,
 		"date": "25 12 22",
 		"path": "the brozone- integral map-making  8-21-11.mp3",
 		"title": "the brozone- integral map-making  8-21-11.mp3"
 	},	
 	{
-		"id": [],
+		"id": 8,
 		"date": "25 12 22",
 		"path": "the brozone- the pinball effect part 5  8-14-11.mp3",
 		"title": "the brozone- the pinball effect part 5  8-14-11.mp3"
