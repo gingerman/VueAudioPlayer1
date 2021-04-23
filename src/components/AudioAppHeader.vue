@@ -10,15 +10,13 @@
 // Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
 
   export default {
-    name: 'Header',
+    name: 'AudioAppHeader',
     props: {
       title: {
         type:String,
         default:"no value passed to header.vue",
       }
-    },
-    components:{
-    } 
+    }
   }
 
 </script>

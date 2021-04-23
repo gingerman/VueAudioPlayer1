@@ -23,11 +23,13 @@ export default {
 
 <style scoped>
     h3 {
-        border: 1px solid black;
+        /* border: 1px solid black; */
         text-align: left;
         font-size: 1.2em;
         font-weight: bold;
         background-color: white;
-        margin:1px;
+        margin: 5px 1px 0px  1px;
+
+
     }
 </style>

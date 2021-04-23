@@ -1,17 +1,19 @@
 <template>
-    <div><Header title="MASHER AUDIO PLAYER"/></div><br>
-    <div><PlayerConsole/></div>
+    <div><AudioAppHeader title="MASHER AUDIO PLAYER"/></div><br> 
+    <div><PlayerConsole title="Brozone Player Dev"/></div>
 </template>
 
 <script>
-import Header from './Header.vue'
-import PlayerConsole from './PlayerConsole.vue'
 
-export default {
-  name: 'AudioAppContainer', 
-  components: {
-  Header, PlayerConsole
-  }}
+  import AudioAppHeader from './AudioAppHeader.vue'
+  import PlayerConsole from './PlayerConsole.vue'
+
+  export default {
+    name: 'AudioAppContainer', 
+    components: {
+      PlayerConsole,AudioAppHeader,
+    }
+  }
 </script>
 
 <style>
