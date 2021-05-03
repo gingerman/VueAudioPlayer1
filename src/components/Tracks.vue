@@ -1,6 +1,8 @@
 <template>
-    <div v-for="track in tracks" v-bind:key="track">
-        <h3><Track :track="track" /></h3>
+    <div>
+        <div v-for="track in tracks" v-bind:key="track">
+            <h3><Track :track="track" /></h3>
+        </div>
     </div>
 </template>
 

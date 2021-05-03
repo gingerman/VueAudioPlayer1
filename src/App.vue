@@ -1,6 +1,8 @@
 <template>
+	<div>
     <AudioAppContainer/>
     <Tracks :tracks="tracks" />
+	</div>
 </template>
 
 <script>
@@ -25,26 +27,26 @@ export default {
 	{
 		"id": 1,
 		"date": "14 09 10",
-		"path": "the brozone- fuck it or kill it  10-02-11  (date unknown).mp3",
-		"title": "fuck it or kill it"
+		"path": "theorbzone-fuck12part31LIVECOVERAGEofAbolishTacomaPDandPortlandAbolishICEdirectactionprotests1-24-21.mp3",
+		"title": "THIS TRACK NAME EXISTS TEST"
 	},	
 	{
 		"id": 2,
 		"date": "15 10 75",
-		"path": "the brozone- emotional freedom techniques  9-25-11  (date unknown).mp3",
-		"title": "emotional freedom techniques"
+		"path": "4-12-20.mp3",
+		"title": "TEST THIS ONE !!!!!!!!!"
 	},	
 	{
 		"id": 3,
 		"date": "25 12 22",
-		"path": "the brozone- the techno-economic center of gravity and the develpmental line of the self  9-18-11  (date unknown).mp3",
+		"path": "tree_falling_radioshack_remix.mp3",
 		"title": "the techno-economic center of gravity and the develpmental line of the self"
 	},	
 	{
 		"id": 4,
 		"date": "25 12 22",
-		"path": "the brozone- divination, astrology and the pre-trans fallacy  9-11-11  (date unknown).mp3",
-		"title": "divination, astrology and the pre-trans fallacy"
+		"path": "the_otter_on_the_brozone-_movin_on__3-4-12.mp3",
+		"title": "grrrrthe_otter_on_the_brozone-_movin_on"
 	},	
 	{
 		"id": 5,
