@@ -7,52 +7,50 @@
 </template>
 
 <script>
+    import TrackProgressBar from './TrackProgressBar.vue'
+    import {Howl, Howler} from 'howler'
 
-import TrackProgressBar from './TrackProgressBar.vue'
-import {Howl, Howler} from 'howler'
-// require("./assets/4-12-20.mp3")
-
-
-export default {
-    name: 'Track',
-    data() {
-        return {
-            inProgress:false,
-            sound:Howl,
-        }
-    },
-    props:{
-        track:Object,
-
-    },
-    methods:{
-        getDate(){ return this.track.date },
-        getTitle(){ return this.track.title},
-        clickTrack(){ 
-            if ( !this.getInProgressStatus() ){
-                var loadmp3 = this.track.path;
-                console.log("• Clicked = " + this.track.path + " .");
-                this.inProgress = !this.getInProgressStatus();
-                // console.log( "eeeeee " + this.getInProgressStatus() );
-                this.sound = new Howl({
-                    src: [ loadmp3 ],
-                    html5:true,
-                });
-                this.sound.play();
-            } else {
-                this.sound.seek(0);
-                this.sound.stop();
+    export default {
+        name: 'Track',
+        data() {
+            return {
+                inProgress:false,
+                sound:Howl,
+                loadmp3:String,
             }
         },
-        getInProgressStatus(){
-            return this.inProgress;
+        props:{
+            track:Object,
+        },
+        created: function(){
+            this.loadmp3 = this.track.track;
+        },
+        methods:{
+            clickTrack(){ 
+                if ( !this.getInProgressStatus() ){
+                    this.loadmp3 = this.track.path;
+                    this.sound = new Howl({
+                        src: [ this.loadmp3 ],
+                        html5:true,
+                    });
+                    this.sound.play();
+                } else {
+                    this.sound.stop();
+                    this.sound.seek(0);
+                };
+                this.inProgress = !this.getInProgressStatus();
+            },
+            getDate(){ return this.track.date },
+            getTitle(){ return this.track.title },
+            getTrack(){ return this.track.track },
+            getInProgressStatus(){
+                return this.inProgress;
+            }
+        },
+        components: {
+            TrackProgressBar,Howl, Howler,
         }
-    },
-    components: {
-        TrackProgressBar,Howl, Howler,
     }
-}
-
 </script>
 
 <style scoped>
