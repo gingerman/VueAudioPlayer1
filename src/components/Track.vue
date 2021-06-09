@@ -17,6 +17,10 @@
                 inProgress:false,
                 sound:Howl,
                 loadmp3:String,
+                duration:Number,
+                baseUrl:'/',
+                soundPlaying:false,
+                // baseUrl:'http://www.brozoneradio.com/podcast_episodes/',
             }
         },
         props:{
@@ -27,25 +31,90 @@
         },
         methods:{
             clickTrack(){ 
+                
+
                 if ( !this.getInProgressStatus() ){
                     this.loadmp3 = this.track.path;
+
+                    const trackSource =`${this.baseUrl}`+`${this.loadmp3}`;
+                    console.log('trackSource = ' + trackSource + "\n");
+
+                    
+
                     this.sound = new Howl({
-                        src: [ this.loadmp3 ],
+                        src: [ trackSource ],
                         html5:true,
+                        autoUnlock:true,
                     });
+
                     this.sound.play();
+
+                    this.sound.on('load', function(){
+                        //this.duration =  this.sound.duration();
+                        console.log( 'Sound Loaded event'  );
+                    });
+
+                    this.sound.on('play', function(){
+                        console.log('Playing!');
+                        this.soundPlaying = true;
+                    });
+
+                    this.sound.on('stop', function(){
+                        console.log('Stopped!');
+                    });
+
+                    // this.sound.on('loadError', () => {
+                    //     console.log('Sound Load Error:');
+                    // });
+                    // this.sound.onplay = function(){ console.log("Loaded Sound Error")};
+                    this.sound.onplayerror =  function() {
+                        sound.once('unlock', function() {
+                        sound.play();
+                        this.soundPlaying = true;
+                        });
+                    }
+
+                    this.sound.onseek = function() {
+                      //Start upating the progress of the track.
+                        requestAnimationFrame(self.step.bind(self))
+                      console.log( 'update ' + this.sound.duration );
+                    }
+                    
                 } else {
+                    console.log( 'this is at ' + this.sound.seek() );
                     this.sound.stop();
                     this.sound.seek(0);
+                    this.soundPlaying = false;
                 };
                 this.inProgress = !this.getInProgressStatus();
             },
-            getDate(){ return this.track.date },
-            getTitle(){ return this.track.title },
-            getTrack(){ return this.track.track },
+            getDate(){ 
+                return this.track.date },
+            getTitle(){ 
+                return this.track.title },
+            getTrack(){ 
+                return this.track.track },
             getInProgressStatus(){
                 return this.inProgress;
-            }
+            },
+                /**
+                 * Seek to a new position in the currently playing track.
+                 * @param  {Number} per Percentage through the song to skip.
+                 */
+                seek: function(per) {
+                    var self = this;
+
+                    // Get the Howl we want to manipulate.
+                    var sound = self.playlist[self.index].howl;
+
+                    // Convert the percent into a seek position.
+                    if (sound.playing()) {
+                    sound.seek(sound.duration() * per);
+                    }
+                }
+
+
+
         },
         components: {
             TrackProgressBar,Howl, Howler,

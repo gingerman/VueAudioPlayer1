@@ -6,10 +6,18 @@ export default defineConfig(
   {
   plugins: [vue()],
   base:"/",
-  publicDir:"../public/"
+  publicDir:"./public",
+  require:"./audio/"
   }
 )
 
+
+  // {
+  // plugins: [vue()],
+  // base:"http://www.brozoneradio.com/test/",
+  // publicDir:"./public/",
+  // require:"./audio/"
+  // }
 
 // base:"/brozone_zone_1/dist/",
 
