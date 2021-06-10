@@ -23,14 +23,12 @@ export default {
     AudioAppContainer, Tracks
   },
   created() {
-
-
     this.tracks = [	
 	{
-        "date": "14 12 20",
+        "date": "date is 14 12 20",
         "id": 1,
         "path": "4-12-20.mp3",
-        "title": "4-12-20"
+        "title": "title of track is 4-12-20"
     },
     {
         "date": "14 09 10",
@@ -3473,8 +3471,6 @@ export default {
   }
 }
 
-// This starter template is using Vue 3 experimental <script setup> SFCs
-// Check out https://github.com/vuejs/rfcs/blob/script-setup-2/active-rfcs/0000-script-setup.md
 </script>
 
 <style>

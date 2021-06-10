@@ -18,9 +18,9 @@
                 sound:Howl,
                 loadmp3:String,
                 duration:Number,
-                baseUrl:'/',
                 soundPlaying:false,
                 // baseUrl:'http://www.brozoneradio.com/podcast_episodes/',
+                baseUrl:'/',
             }
         },
         props:{
@@ -31,7 +31,7 @@
         },
         methods:{
             clickTrack(){ 
-                
+                var self = this;
 
                 if ( !this.getInProgressStatus() ){
                     this.loadmp3 = this.track.path;
@@ -39,34 +39,38 @@
                     const trackSource =`${this.baseUrl}`+`${this.loadmp3}`;
                     console.log('trackSource = ' + trackSource + "\n");
 
-                    
-
                     this.sound = new Howl({
                         src: [ trackSource ],
                         html5:true,
                         autoUnlock:true,
+                        onplay: function(){
+                            console.log('Playing!');
+                            this.soundPlaying = true;
+                            // Start upating the progress of the track.
+                            requestAnimationFrame(self.step.bind(self));
+                        },
+                        onload: function(){
+                            //this.duration =  this.sound.duration();
+                            console.log( 'Sound Loaded event'  );
+                        },
+                        onend: function(){
+                            console.log('Ended!');
+                        },
+                        onpause: function(){
+                            console.log('Paused!');
+                        },
+                        onstop: function(){
+                            console.log('Stopped!');
+                        },
+                        onseek: function(){
+                            //Start upating the progress of the track.
+                            console.log("onSeek")
+                            requestAnimationFrame(self.step.bind(self))
+                        },
                     });
 
                     this.sound.play();
 
-                    this.sound.on('load', function(){
-                        //this.duration =  this.sound.duration();
-                        console.log( 'Sound Loaded event'  );
-                    });
-
-                    this.sound.on('play', function(){
-                        console.log('Playing!');
-                        this.soundPlaying = true;
-                    });
-
-                    this.sound.on('stop', function(){
-                        console.log('Stopped!');
-                    });
-
-                    // this.sound.on('loadError', () => {
-                    //     console.log('Sound Load Error:');
-                    // });
-                    // this.sound.onplay = function(){ console.log("Loaded Sound Error")};
                     this.sound.onplayerror =  function() {
                         sound.once('unlock', function() {
                         sound.play();
@@ -74,12 +78,7 @@
                         });
                     }
 
-                    this.sound.onseek = function() {
-                      //Start upating the progress of the track.
-                        requestAnimationFrame(self.step.bind(self))
-                      console.log( 'update ' + this.sound.duration );
-                    }
-                    
+              
                 } else {
                     console.log( 'this is at ' + this.sound.seek() );
                     this.sound.stop();
@@ -97,21 +96,49 @@
             getInProgressStatus(){
                 return this.inProgress;
             },
-                /**
-                 * Seek to a new position in the currently playing track.
-                 * @param  {Number} per Percentage through the song to skip.
-                 */
-                seek: function(per) {
-                    var self = this;
+            /**
+             * Seek to a new position in the currently playing track.
+             * @param  {Number} per Percentage through the song to skip.
+             */
+            seek: function(per) {
+                var self = this;
 
-                    // Get the Howl we want to manipulate.
-                    var sound = self.playlist[self.index].howl;
-
-                    // Convert the percent into a seek position.
-                    if (sound.playing()) {
-                    sound.seek(sound.duration() * per);
-                    }
+                // Convert the percent into a seek position.
+                if (this.sound.playing()) {
+                    this.sound.seek(this.sound.duration() * per);
                 }
+                console.log( 'seek update ' + this.sound.duration() );
+            },                    /**
+                * The step called within requestAnimationFrame to update the playback position.
+                */
+            step: function() {
+                var self = this;
+                //console.log( 'step update dur ' + this.sound.duration() );
+                //console.log( 'step update seek ' + this.sound.seek() );
+
+
+
+                // Determine our current seek position.
+                var seek = this.sound.seek() ;
+                //timer.innerHTML = self.formatTime(Math.round(seek));
+                // progress.style.width = (((seek / sound.duration()) * 100) || 0) + '%';
+
+                var perc = ((( seek / this.sound.duration()) * 100) || 0) ;
+                console.log( "percent = " + perc  +" -- " + seek)
+
+                // TrackProgressBar.data.oldPercent = perc;
+                // var pb = getElementsByClassName('.track-progress-bar');
+                // pb.style.width = perc;               
+
+                //console.log( "Track to TrackProgressBar = " + TrackProgressBar.methods.update() );
+                // TrackProgressBar.data;
+                TrackProgressBar.methods.update(perc)
+
+                // If the sound is still playing, continue stepping.
+                if (this.sound.playing()) {
+                requestAnimationFrame(self.step.bind(self));
+                }
+            },
 
 
 
