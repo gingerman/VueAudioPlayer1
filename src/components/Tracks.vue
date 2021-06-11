@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-for="track in tracks" v-bind:key="track">
-            <h3><Track :track="track" /></h3>
+        <div v-for="(track, index) in tracks" v-bind:key="index">
+            <h3>{{ index }}<Track :track="track" /></h3>
         </div>
     </div>
 </template>
@@ -19,7 +19,14 @@ export default {
     },
     components:{
         Track
-    }
+    },
+    data() {
+        return {
+            currentlyPlayingTrackID: {
+            type:Number,
+            default:6,
+        }}
+    },
 }
 </script>
 

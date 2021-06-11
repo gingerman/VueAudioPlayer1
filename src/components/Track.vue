@@ -19,8 +19,8 @@
                 loadmp3:String,
                 duration:Number,
                 soundPlaying:false,
-                // baseUrl:'http://www.brozoneradio.com/podcast_episodes/',
-                baseUrl:'/',
+                baseUrl:'http://www.brozoneradio.com/podcast_episodes/',
+                //baseUrl:'/',
             }
         },
         props:{
@@ -34,6 +34,7 @@
                 var self = this;
 
                 if ( !this.getInProgressStatus() ){
+                    console.log( "this_track_id" + this.track.index );
                     this.loadmp3 = this.track.path;
 
                     const trackSource =`${this.baseUrl}`+`${this.loadmp3}`;
@@ -64,7 +65,7 @@
                         },
                         onseek: function(){
                             //Start upating the progress of the track.
-                            console.log("onSeek")
+                            // console.log("onSeek")
                             requestAnimationFrame(self.step.bind(self))
                         },
                     });
@@ -80,7 +81,7 @@
 
               
                 } else {
-                    console.log( 'this is at ' + this.sound.seek() );
+                    // console.log( 'this is at ' + this.sound.seek() );
                     this.sound.stop();
                     this.sound.seek(0);
                     this.soundPlaying = false;
@@ -107,7 +108,7 @@
                 if (this.sound.playing()) {
                     this.sound.seek(this.sound.duration() * per);
                 }
-                console.log( 'seek update ' + this.sound.duration() );
+                //console.log( 'seek update ' + this.sound.duration() );
             },                    /**
                 * The step called within requestAnimationFrame to update the playback position.
                 */
@@ -116,15 +117,14 @@
                 //console.log( 'step update dur ' + this.sound.duration() );
                 //console.log( 'step update seek ' + this.sound.seek() );
 
-
-
                 // Determine our current seek position.
                 var seek = this.sound.seek() ;
                 //timer.innerHTML = self.formatTime(Math.round(seek));
                 // progress.style.width = (((seek / sound.duration()) * 100) || 0) + '%';
 
+                var tim = self.formatTime(Math.round(seek));
                 var perc = ((( seek / this.sound.duration()) * 100) || 0) ;
-                console.log( "percent = " + perc  +" -- " + seek)
+                // console.log( "percent = " + perc  +" -- " + seek)
 
                 // TrackProgressBar.data.oldPercent = perc;
                 // var pb = getElementsByClassName('.track-progress-bar');
@@ -132,13 +132,26 @@
 
                 //console.log( "Track to TrackProgressBar = " + TrackProgressBar.methods.update() );
                 // TrackProgressBar.data;
-                TrackProgressBar.methods.update(perc)
+                TrackProgressBar.methods.update(perc, tim)
 
                 // If the sound is still playing, continue stepping.
                 if (this.sound.playing()) {
                 requestAnimationFrame(self.step.bind(self));
                 }
             },
+                        /**
+             * Format the time from seconds to M:SS.
+             * @param  {Number} secs Seconds to format.
+             * @return {String}      Formatted time.
+             */
+            formatTime: function(secs) {
+                var minutes = Math.floor(secs / 60) || 0;
+                var seconds = (secs - minutes * 60) || 0;
+
+                return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+            },
+            
+
 
 
 

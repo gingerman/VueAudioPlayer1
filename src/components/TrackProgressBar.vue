@@ -1,7 +1,8 @@
 <template>
     <div>
-        <div id="lb" v-bind:loadedPercent="loadedPercent" class="loadedpc">{{loadedPercent+"%"}}</div>
-        <!-- <div class="remainingpc"></div> -->
+        <div id="currTime" v-bind:playTime="playTime" >{{playTime}}</div>
+        <div id="lb" class="loadedpc"></div>
+            <!-- <div class="remainingpc"></div> -->
         <!-- v-bind:artists="artists"/> -->
         <!-- <audio controls>
             <source src="horse.ogg" type="audio/ogg">
@@ -22,7 +23,9 @@ export default {
         loadedPercent: {
             type:Number,
             default:6,
-        }
+        },
+        playTime: {
+        },
     },
     data(){
         return{
@@ -30,24 +33,35 @@ export default {
         }
     },
     methods:{
-        update(x){
-        // this.loadedpc.style.width = "50%"
-        //    loadedpc.style.width = "50%"
-        //getElementById( this.xxx ).style.width = "50%"
+        update( pc, ti ){
+            // this.loadedpc.style.width = "50%"
+            //    loadedpc.style.width = "50%"
+            //getElementById( this.xxx ).style.width = "50%"
 
-        console.log( "TrackProgressBar update() = " + Math.round(x));
+            this.playTime = ti;
+            // console.log( "ti = " + ti );
+            // console.log( "TrackProgressBar update() = " + Math.round(pc));
 
-        this.setLoadedAmount( Math.round(x) );
+            this.setLoaderBar( Math.ceil(pc) );
+            this.setCurrTime( ti );
 
         },
         getLoadedPercent(){
             return this.loadedPercent;
         },
-        setLoadedAmount(la){
+        setLoaderBar(la){
             var loadedBar = document.getElementById( "lb" );
-            console.log( `loaderBar = ${loadedBar}` );
-            loadedBar.style.width = la+"%";
-        }
+            // console.log( `loaderBar = ${loadedBar}` );
+            if ( loadedBar ){
+                loadedBar.style.width = la+"%";
+            }
+        },
+        setCurrTime(ti){
+            var cTime = document.getElementById( "currTime" );
+            if ( cTime ){
+                cTime.innerHTML = ti;
+            }
+        },
     },
     // created:{
     //     this.oldPercent.style.width = "50%",
@@ -60,7 +74,7 @@ export default {
     .loadedpc {
         position:relative;
         top:0;
-        width:90%;
+        width:0%;
         height:30px;
         background-color: rgb(255, 0, 0);
     }
