@@ -7,36 +7,6 @@ export default defineConfig(
   plugins: [vue()],
   base:"http://www.brozoneradio.com/test/",
   publicDir:"./public/",
-  require:"./audio/"
+  require:"./data/"
   }
 )
-
-
-  // {
-  // plugins: [vue()],
-  // base:"http://www.brozoneradio.com/test/",
-  // publicDir:"./public/",
-  // require:"./audio/"
-  // }
-
-
-    // {
-    //   plugins: [vue()],
-    //   base:"/",
-    //   publicDir:"./public",
-    //   require:"./audio/"
-    // }
-
-
-
-
-
-
-
-
-
-// base:"/brozone_zone_1/dist/",
-
-
-// require:"./audio/",
-// publicDir:"./audio/",
